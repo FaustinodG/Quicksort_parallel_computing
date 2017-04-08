@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">QuickSort</string>
+    <string name="app_name">MergeSort</string>
     <string name="generate_students">Generate Students and Sort</string>
     <string name="title_results">Results:</string>
     <string name="hint_student_count">Amount of students</string>
+    <string name="hint_thread_count">Amount of threads</string>
 </resources>

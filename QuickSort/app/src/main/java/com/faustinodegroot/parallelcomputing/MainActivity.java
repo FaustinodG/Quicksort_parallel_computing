@@ -21,8 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mButton;
     private TextView mResultView;
-    private TextView mUserInput;
-    private Quicksort mQuickSort = new Quicksort();
+    private TextView mStudentCountInput;
+    private TextView mThreadCountInput;
+    private int mThreadCount = 1; //Default = 1
     private MergeSort mMergeSort = new MergeSort();
     private Pattern number = Pattern.compile("^(-?)\\d+$");
 
@@ -32,14 +33,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mButton = (Button) findViewById(R.id.button_generate);
         mResultView = (TextView) findViewById(R.id.title_results);
-        mUserInput = (TextView) findViewById(R.id.input_students);
+        mStudentCountInput = (TextView) findViewById(R.id.input_students);
+        mThreadCountInput = (TextView) findViewById(R.id.input_threads);
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUserInput.length() != 0 && !mUserInput.getText().equals("")) {
-                    mButton.setEnabled(false);
-                    generateStudents(Integer.parseInt(mUserInput.getText().toString()));
+                if (mThreadCountInput.length() != 0 && !mThreadCountInput.getText().equals("") &&
+                        mThreadCountInput.getText().toString().matches(number.pattern())) {
+                    mThreadCount = Integer.parseInt(mThreadCountInput.getText().toString());
+                } else {
+                    mThreadCount = 1;
+                }
+                if (mStudentCountInput.length() != 0 && !mStudentCountInput.getText().equals("")) {
+                    if (mStudentCountInput.getText().toString().matches(number.pattern())) {
+
+                        mButton.setEnabled(false);
+                        generateStudents(Integer.parseInt(mStudentCountInput.getText().toString()));
+                    } else {
+                        Toast.makeText(MainActivity.this, "'Amount of students' has to be a number", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(MainActivity.this, "Input cannot be empty", Toast.LENGTH_SHORT).show();
                 }
@@ -56,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
         Collections.shuffle(mStudentList);
 
         long startTime = System.currentTimeMillis();
-        mMergeSort.parallelMergeSort(mStudentList, 4);
+        mMergeSort.parallelMergeSort(mStudentList, mThreadCount);
         long endTime = System.currentTimeMillis();
 
-        mResultView.append("\n Merge sort " + mUserInput.getText() + " students in " + (endTime - startTime) + "ms");
+        mResultView.append("\nMerge sorted " + mStudentCountInput.getText() + " students in " + (endTime - startTime) + "ms with " + mThreadCount + " threads.");
 
         mButton.setEnabled(true);
         mStudentList.clear();

@@ -5,13 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
     tools:context="com.faustinodegroot.parallelcomputing.MainActivity">
 
     <EditText
         android:id="@+id/input_students"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_student_count"/>
+        android:hint="@string/hint_student_count" />
+
+    <EditText
+        android:id="@+id/input_threads"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_thread_count" />
+
     <Button
         android:id="@+id/button_generate"
         android:layout_width="wrap_content"
@@ -24,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_results"
-        />
+        android:textColor="@color/colorPrimaryText" />
 
 
 </LinearLayout>
