@@ -5,12 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.faustinodegroot.quicksort.MainActivity">
+    tools:context="com.faustinodegroot.parallelcomputing.MainActivity">
 
+    <EditText
+        android:id="@+id/input_students"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_student_count"/>
     <Button
         android:id="@+id/button_generate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/generate_students" />
 
     <TextView

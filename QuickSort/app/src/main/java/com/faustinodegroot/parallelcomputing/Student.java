@@ -1,4 +1,4 @@
-package com.faustinodegroot.quicksort;
+package com.faustinodegroot.parallelcomputing;
 
 /**
  * Created by Faustino on 8-4-2017.

@@ -1,4 +1,4 @@
-package com.faustinodegroot.quicksort;
+package com.faustinodegroot.parallelcomputing;
 
 import java.util.Collections;
 import java.util.Comparator;

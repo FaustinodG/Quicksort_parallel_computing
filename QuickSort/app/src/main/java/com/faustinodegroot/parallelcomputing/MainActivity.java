@@ -1,15 +1,17 @@
-package com.faustinodegroot.quicksort;
+package com.faustinodegroot.parallelcomputing;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mButton;
     private TextView mResultView;
+    private TextView mUserInput;
     private Quicksort mQuickSort = new Quicksort();
+    private MergeSort mMergeSort = new MergeSort();
+    private Pattern number = Pattern.compile("^(-?)\\d+$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +32,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mButton = (Button) findViewById(R.id.button_generate);
         mResultView = (TextView) findViewById(R.id.title_results);
+        mUserInput = (TextView) findViewById(R.id.input_students);
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                generateStudents(STUDENT_COUNT);
+                if (mUserInput.length() != 0 && !mUserInput.getText().equals("")) {
+                    mButton.setEnabled(false);
+                    generateStudents(Integer.parseInt(mUserInput.getText().toString()));
+                } else {
+                    Toast.makeText(MainActivity.this, "Input cannot be empty", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -44,11 +56,13 @@ public class MainActivity extends AppCompatActivity {
         Collections.shuffle(mStudentList);
 
         long startTime = System.currentTimeMillis();
-        mQuickSort.sort(mStudentList);
+        mMergeSort.parallelMergeSort(mStudentList, 4);
         long endTime = System.currentTimeMillis();
 
-        mResultView.append("\n Quicksorting " + STUDENT_COUNT + " students in " + (endTime - startTime) + "ms");
+        mResultView.append("\n Merge sort " + mUserInput.getText() + " students in " + (endTime - startTime) + "ms");
 
+        mButton.setEnabled(true);
+        mStudentList.clear();
     }
 
     private double generateGrade() {
