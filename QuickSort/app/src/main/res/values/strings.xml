@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">QuickSort</string>
+    <string name="generate_students">Generate Students and sort</string>
+    <string name="title_results">Results:</string>
 </resources>
